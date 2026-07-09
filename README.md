@@ -1,28 +1,38 @@
-# Tom's Film Lab — Releases
+# Tom's Film Lab — リリース / Releases
 
-Download builds of **Tom's Film Lab**, a macOS app for inverting and editing
-scanned film negatives.
+**Tom's Film Lab** は、スキャンしたフィルムネガを反転・編集するための macOS アプリです。
+このリポジトリは配布用のビルド（バイナリ）を置く場所で、ソースコードは非公開で管理しています。
 
-➡️ **[Download the latest release](../../releases/latest)**
+➡️ **[最新版をダウンロード（Download latest）](../../releases/latest)**
 
-## Install
+## インストール
 
-1. Download the `.zip` from the latest release and unzip it.
-2. Move `TomsFilmLab.app` to your `Applications` folder.
-3. **First launch:** right-click the app → **Open** → confirm.
+1. 最新リリースから `.zip` をダウンロードして解凍します。
+2. `TomsFilmLab.app` を「アプリケーション」フォルダへ移動します。
+3. **初回のみ**：アプリを右クリック →「**開く**」→ 確認ダイアログで「開く」。
 
-   These builds are ad-hoc signed but not notarized, so on first launch macOS
-   Gatekeeper shows a warning. Right-click → Open bypasses it (you only need to
-   do this once). Alternatively:
+   このビルドは公証（notarization）されていないため、初回起動時に macOS の
+   Gatekeeper が「開けません」という警告を出します。上記の「右クリック →『開く』」で
+   回避できます（**一度だけ**でOK）。うまくいかない場合は次のコマンドでも解除できます：
+
    ```sh
    xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app
    ```
 
-## Updates
+## アップデート
 
-The app checks this repository for new releases and offers to download them
-from within Settings → アップデート.
+アプリは起動時にこのリポジトリの新しいリリースを自動で確認します
+（設定 → **アップデート** →「今すぐ確認」でも手動確認できます）。
+新しいバージョンがあれば通知され、その場でダウンロードできます。
 
 ---
 
-Source code is maintained privately; this repository hosts release binaries only.
+## English (summary)
+
+**Tom's Film Lab** is a macOS app for inverting and editing scanned film negatives.
+This repo hosts release binaries only; the source is kept private.
+
+**Install:** download the `.zip` from the [latest release](../../releases/latest),
+move `TomsFilmLab.app` to `Applications`, then **right-click → Open** on first launch
+(these builds are ad-hoc signed but not notarized). The app checks this repo for
+updates from Settings → アップデート.
