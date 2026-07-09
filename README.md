@@ -9,15 +9,32 @@
 
 1. 最新リリースから `.zip` をダウンロードして解凍します。
 2. `TomsFilmLab.app` を「アプリケーション」フォルダへ移動します。
-3. **初回のみ**：アプリを右クリック →「**開く**」→ 確認ダイアログで「開く」。
+3. 下記「初回起動の許可」に従って、初回だけ実行を許可します。
 
-   このビルドは公証（notarization）されていないため、初回起動時に macOS の
-   Gatekeeper が「開けません」という警告を出します。上記の「右クリック →『開く』」で
-   回避できます（**一度だけ**でOK）。うまくいかない場合は次のコマンドでも解除できます：
+## 初回起動の許可（重要）
 
-   ```sh
-   xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app
-   ```
+このビルドは公証（notarization）されていないため、初回起動時に macOS の
+Gatekeeper がブロックします。**一度だけ**次の操作で許可してください。
+
+### 最新の macOS（Sequoia / 15 以降）
+
+1. `TomsFilmLab.app` をダブルクリックする（「開けません」と表示されてOK）。
+2. **システム設定 → プライバシーとセキュリティ** を開く。
+3. 画面下の方に出る「**"TomsFilmLab" は…ブロックされました**」の欄の
+   「**このまま開く**（Open Anyway）」ボタンを押す。
+4. もう一度アプリを開き、確認ダイアログで「開く」を押す。
+
+### それ以前の macOS
+
+- `TomsFilmLab.app` を**右クリック →「開く」**→ 確認ダイアログで「開く」。
+
+### うまくいかない場合（共通）
+
+ターミナルで隔離属性を外すと確実に開けます：
+
+```sh
+xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app
+```
 
 ## アップデート
 
@@ -32,7 +49,13 @@
 **Tom's Film Lab** is a macOS app for inverting and editing scanned film negatives.
 This repo hosts release binaries only; the source is kept private.
 
-**Install:** download the `.zip` from the [latest release](../../releases/latest),
-move `TomsFilmLab.app` to `Applications`, then **right-click → Open** on first launch
-(these builds are ad-hoc signed but not notarized). The app checks this repo for
-updates from Settings → アップデート.
+**Install:** download the `.zip` from the [latest release](../../releases/latest) and
+move `TomsFilmLab.app` to `Applications`. These builds are ad-hoc signed but **not
+notarized**, so first launch needs a one-time approval:
+
+- **macOS Sequoia (15)+**: double-click (it will be blocked) → **System Settings →
+  Privacy & Security** → click **"Open Anyway"** for TomsFilmLab → open again and confirm.
+- **Older macOS**: **right-click → Open**.
+- Or clear quarantine: `xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app`
+
+The app checks this repo for updates from Settings → アップデート.
