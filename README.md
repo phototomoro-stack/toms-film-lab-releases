@@ -5,6 +5,9 @@
 
 ➡️ **[最新版をダウンロード（Download latest）](../../releases/latest)**
 
+📖 **操作マニュアル** — [PDF 版](docs/TomsFilmLab-Manual-JA.pdf) / [ブラウザで読む](docs/MANUAL.md)
+読み込みからネガ反転・調整・書き出しまで、画面の順に沿って解説しています（v0.2.7.1 時点）。
+
 ## 更新履歴 (Changelog)
 
 各バージョンの変更点です。過去の全リリースは [Releases](../../releases) を参照してください。
