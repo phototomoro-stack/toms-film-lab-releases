@@ -1,18 +1,38 @@
 # Tom's Film Lab — リリース / Releases
 
-**Tom's Film Lab** は、スキャンしたフィルムネガを反転・編集するための macOS アプリです。
+**Tom's Film Lab** は、スキャンしたフィルムネガを反転・編集するためのアプリです（**macOS / Windows**）。
 このリポジトリは配布用のビルド（バイナリ）を置く場所で、ソースコードは非公開で管理しています。
 
 ➡️ **[最新版をダウンロード（Download latest）](../../releases/latest)**
+— 各リリースに Mac 版（`…-mac.zip`）と Windows 版（`…-windows.zip`）があります。
 
 📖 **操作マニュアル** — [PDF 版](docs/TomsFilmLab-Manual-JA.pdf) / [ブラウザで読む](docs/MANUAL.md)
-読み込みからネガ反転・調整・書き出しまで、画面の順に沿って解説しています（v0.2.7.1 時点）。
+読み込みからネガ反転・調整・書き出しまで、画面の順に沿って解説しています（v0.2.7.1 時点、Mac 版の画面）。
 
 ## 更新履歴 (Changelog)
 
 各バージョンの変更点です。過去の全リリースは [Releases](../../releases) を参照してください。
 
 <!-- CHANGELOG:START -->
+### 0.3.0
+
+Mac 版と Windows 版を、同じリリース・同じバージョン番号で出すようにしました。Windows 版は、アプリの中から更新できるようになり、色の計算が Mac 版とそろいました。
+
+### Mac 版
+
+- 追加：**カタログから、ロールを取り除けるようになりました。**ロールを右クリックして「カタログから取り除く…」を選ぶか、Delete キーを押すと、確認のあとで取り除きます。カタログの一覧から消えるだけで、写真・そのフォルダ・フォルダの中のロールの情報（`roll.tflroll.json`）はそのまま残り、フォルダを読み込み直すとロールが戻ります
+- 変更：アップデートの配布場所が、Windows 版と同じリリースになりました（各リリースに Mac 版と Windows 版の両方が入ります）。アプリ側の操作は変わりません
+
+### Windows 版（ベータ）
+
+- 追加：**アプリの中からアップデートできるようになりました。**起動時（6 時間おき）とヘルプ ▸ アップデートを確認... で新しい版を確かめ、「今すぐ更新」でダウンロード・入れ替え・再起動まで行います。「このバージョンをスキップ」「後で」も選べます。0.0.1-beta には更新機能がないので、この版だけ手で入れ替えてください
+- 追加：**Windows のライト / ダークの設定に合わせて、画面の明るさが切り替わります**（タイトルバーも含みます）
+- 変更：**色の計算を Mac 版にそろえました。**同じ写真・同じ編集なら、Windows 版と Mac 版でほぼ同じ色になります（Mac 版の処理と比べる 116 項目のうち 114 項目で一致。残る 2 項目はノイズ除去で、近い見た目です）。以前の版で編集した写真も、少し見た目が変わることがあります
+  - 端数のある切り抜きは、縁が 1 ピクセル広がることがあります（Mac 版と同じ切り方になりました）
+- 変更：読み込み中は、ツールバーに進み具合のバーと % が出ます。Ctrl+, で設定が開きます。アプリのアイコンを Mac 版と同じにしました
+- 修正：カタログの「このロールを開く」ボタンが、詳細欄をスクロールしないと押せなかった不具合。詳細欄の下に固定しました
+- 修正：明るさが 1 を超える白い部分が、カラーノイズ低減を入れると黒くなることがあった不具合
+
 ### 0.2.14
 
 書き出しで元のスキャン画像を上書きしてしまう経路と、途中で失敗したときに書きかけのファイルが残る問題を直し、カレンダーを仏暦・和暦にしていると撮影日の年がずれる不具合と、ロール全体の取り消し・やり直しが重くなる問題も直しました。
@@ -338,18 +358,20 @@
 - 初回リリース
 <!-- CHANGELOG:END -->
 
-## インストール
+## Mac 版
 
-1. 最新リリースから `.zip` をダウンロードして解凍します。
+### インストール
+
+1. 最新リリースから `TomsFilmLab-<バージョン>-mac.zip` をダウンロードして解凍します。
 2. `TomsFilmLab.app` を「アプリケーション」フォルダへ移動します。
 3. 下記「初回起動の許可」に従って、初回だけ実行を許可します。
 
-## 初回起動の許可（重要）
+### 初回起動の許可（重要）
 
 このビルドは公証（notarization）されていないため、初回起動時に macOS の
 Gatekeeper がブロックします。**一度だけ**次の操作で許可してください。
 
-### 最新の macOS（Sequoia / 15 以降）
+**最新の macOS（Sequoia / 15 以降）**
 
 1. `TomsFilmLab.app` をダブルクリックする（「開けません」と表示されてOK）。
 2. **システム設定 → プライバシーとセキュリティ** を開く。
@@ -357,11 +379,11 @@ Gatekeeper がブロックします。**一度だけ**次の操作で許可し�
    「**このまま開く**（Open Anyway）」ボタンを押す。
 4. もう一度アプリを開き、確認ダイアログで「開く」を押す。
 
-### それ以前の macOS
+**それ以前の macOS**
 
 - `TomsFilmLab.app` を**右クリック →「開く」**→ 確認ダイアログで「開く」。
 
-### うまくいかない場合（共通）
+**うまくいかない場合（共通）**
 
 ターミナルで隔離属性を外すと確実に開けます：
 
@@ -369,26 +391,76 @@ Gatekeeper がブロックします。**一度だけ**次の操作で許可し�
 xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app
 ```
 
-## アップデート
+### アップデート
 
 アプリは起動時にこのリポジトリの新しいリリースを自動で確認します
 （設定 → **アップデート** →「今すぐ確認」でも手動確認できます）。
-新しいバージョンがあれば通知され、その場でダウンロードできます。
+新しいバージョンがあれば通知され、そこからダウンロードページを開けます。
+
+## Windows 版（ベータ）
+
+Mac 版の移植版です。まだ一部の機能が未実装です（テザー撮影など）。
+大切な写真は念のためバックアップを取ってからお使いください。
+
+### 動作環境
+
+- Windows 10 / 11（64bit）
+- 対応形式：JPEG / PNG / TIFF（8・16bit）/ RAW
+
+### インストール
+
+1. 最新リリースから `TomsFilmLab-<バージョン>-windows.zip` をダウンロードして解凍します。
+2. フォルダを好きな場所（例：ドキュメント）に置きます。
+3. `tfl-app.exe` をダブルクリックして起動します。
+
+インストーラーはありません。削除するときはフォルダごと消してください。
+設定とプリセットは `%APPDATA%\TomsFilmLab` に保存されます。
+
+### 初回起動の注意（重要）
+
+このビルドはコード署名をしていないため、初回起動時に Microsoft Defender SmartScreen が
+「**Windows によって PC が保護されました**」と表示します。**一度だけ**次の操作で起動してください。
+
+1. 表示された画面の「**詳細情報**」を押す。
+2. 下に出る「**実行**」ボタンを押す。
+
+### アップデート
+
+0.3.0 から、アプリが起動時にこのリポジトリの新しいリリースを確認します（**ヘルプ → アップデートを確認...** でも
+確認できます）。新しいバージョンがあれば「**今すぐ更新**」で入れ替えて、アプリが自動で再起動します。
+アプリのフォルダに書き込めない場所（`Program Files` など）に置いている場合は、リリースのページを開くボタンが出ます。
+
+以前の 0.0.1-beta には更新機能がないため、0.0.1-beta をお使いの方は 0.3.0 だけ手で入れ替えてください。
+
+## Mac 版と Windows 版の互換性
+
+編集内容は写真の横のサイドカー（`*.tfl.json`）に同じ形式で保存されるので、
+同じ写真を Mac 版と Windows 版の両方で開いて編集を続けられます。
+
+> 以前の Windows 版の配布場所
+> [toms-film-lab-windows-releases](https://github.com/phototomoro-stack/toms-film-lab-windows-releases)
+> は、このリポジトリに統合しました。
 
 ---
 
 ## English (summary)
 
-**Tom's Film Lab** is a macOS app for inverting and editing scanned film negatives.
+**Tom's Film Lab** is an app for inverting and editing scanned film negatives, for **macOS and Windows**.
 This repo hosts release binaries only; the source is kept private.
+Each [release](../../releases/latest) has a Mac build (`…-mac.zip`) and a Windows build (`…-windows.zip`).
 
-**Install:** download the `.zip` from the [latest release](../../releases/latest) and
-move `TomsFilmLab.app` to `Applications`. These builds are ad-hoc signed but **not
-notarized**, so first launch needs a one-time approval:
+**Mac:** unzip and move `TomsFilmLab.app` to `Applications`. The builds are ad-hoc signed but **not notarized**,
+so first launch needs a one-time approval:
 
 - **macOS Sequoia (15)+**: double-click (it will be blocked) → **System Settings →
   Privacy & Security** → click **"Open Anyway"** for TomsFilmLab → open again and confirm.
 - **Older macOS**: **right-click → Open**.
 - Or clear quarantine: `xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app`
 
-The app checks this repo for updates from Settings → アップデート.
+The Mac app checks this repo for updates (Settings → アップデート).
+
+**Windows (beta):** unzip anywhere and run `tfl-app.exe` (no installer; delete the folder to uninstall).
+The build is not code-signed, so SmartScreen shows "Windows protected your PC": click **More info → Run anyway** (once).
+From 0.3.0 the Windows app checks this repo for updates (Help → Check for Updates…) and can replace itself and restart ("Update now"). 0.0.1-beta has no updater: replace it by hand once.
+
+Edits are saved as sidecars (`*.tfl.json`) in the same format on both, so a photo can be edited on either.
