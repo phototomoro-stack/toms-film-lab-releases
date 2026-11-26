@@ -14,6 +14,13 @@
 各バージョンの変更点です。過去の全リリースは [Releases](../../releases) を参照してください。
 
 <!-- CHANGELOG:START -->
+### 0.3.2
+
+Mac 版も Windows 版と同じ中身（Rust）の新しいアプリになり、アプリの中で更新できるようになりました。RAW の白飛びがピンクになる不具合を直し、新しく開く写真のディテールの初期値を変えました。
+
+- 変更：**新しく開く写真のディテールの初期値**を シャープネス 0.2・ノイズ低減 1.000・カラーノイズ低減 1.000 にしました（セクションのリセットもこの値に戻ります）。保存済みの編集はこれまでどおりの見え方のままです
+- 修正：**RAW で白飛びした部分が、ピンク（マゼンタ）に色づいて見えた**不具合。センサーで飽和した色に、ホワイトバランスの倍率がそのままかかっていました。飽和した部分は白になるようになりました（白飛びの中のディテールは戻りません）。白飛びしていない部分の色は変わりません
+
 ### 0.3.1
 
 Windows 版と Mac 版 Rust β で、カメラで撮った写真をすぐ開ける「撮影フォルダの監視」を足し、カタログから写真を 1 枚ずつ外せるようにし、トリミング中に写真をドラッグで回せるようにしました。カラーネガの反転で、画像全体が青緑や青に寄る色かぶりも直しました。調整パネルの並べ替え、画面配置の見直し、自動ホワイトバランスの解き方の変更もあります。Mac 版（Swift）は変更ありません。
@@ -385,11 +392,23 @@ Mac 版と Windows 版を、同じリリース・同じバージョン番号で�
 
 ## Mac 版
 
+Apple シリコン（M1 以降）の Mac 用です。Intel の Mac では動きません。
+
 ### インストール
 
 1. 最新リリースから `TomsFilmLab-<バージョン>-mac.zip` をダウンロードして解凍します。
-2. `TomsFilmLab.app` を「アプリケーション」フォルダへ移動します。
+2. `TomsFilmLab.app` を「アプリケーション」フォルダへ移動します（前の版があれば「置き換える」）。
 3. 下記「初回起動の許可」に従って、初回だけ実行を許可します。
+
+### 0.3.1 以前の Mac 版からの切り替え
+
+0.3.1 の次の版から、Mac 版は Windows 版と同じ中身（Rust）の新しいアプリになりました。これまでの Mac 版
+（Swift 版）は更新を終えています。上の手順で `TomsFilmLab.app` を置き換えてください。
+
+- プリセットとカタログはそのまま引き継がれます（同じ `~/Library/Application Support/TomsFilmLab` を使います）。
+- 設定（書き出しサイズ、言語など）は引き継がれません。
+- 0.3.1 の「Mac 版 Rust β」（`Tom's Film Lab (Rust β).app`）は不要になります。削除してください。
+- まだない機能：Finder からファイルを開く（アイコンへのドラッグ・ダブルクリック）。
 
 ### 初回起動の許可（重要）
 
@@ -418,9 +437,12 @@ xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app
 
 ### アップデート
 
-アプリは起動時にこのリポジトリの新しいリリースを自動で確認します
-（設定 → **アップデート** →「今すぐ確認」でも手動確認できます）。
-新しいバージョンがあれば通知され、そこからダウンロードページを開けます。
+アプリは起動時にこのリポジトリの新しいリリースを確認します（**ヘルプ → アップデートを確認...** でも確認できます）。
+新しいバージョンがあれば「**今すぐ更新**」で入れ替えて、アプリが自動で再起動します。
+アプリは「アプリケーション」フォルダに置いてください。ダウンロードフォルダから直接開いたままだと入れ替えられません。
+
+これまでの Mac 版（Swift 版）は、新しい版があると通知してダウンロードページを開くだけです。上の「切り替え」の手順で
+新しいアプリに置き換えてください。
 
 ## Windows 版（ベータ）
 
@@ -474,15 +496,17 @@ Mac 版の移植版です。まだ一部の機能が未実装です（テザー�
 This repo hosts release binaries only; the source is kept private.
 Each [release](../../releases/latest) has a Mac build (`…-mac.zip`) and a Windows build (`…-windows.zip`).
 
-**Mac:** unzip and move `TomsFilmLab.app` to `Applications`. The builds are ad-hoc signed but **not notarized**,
-so first launch needs a one-time approval:
+**Mac (Apple silicon only):** unzip and move `TomsFilmLab.app` to `Applications`. From the release after 0.3.1 the Mac
+app is the same Rust app as on Windows; the old Swift app is retired — replace it (presets and catalog carry over,
+settings do not). The builds are ad-hoc signed but **not notarized**, so first launch needs a one-time approval:
 
 - **macOS Sequoia (15)+**: double-click (it will be blocked) → **System Settings →
   Privacy & Security** → click **"Open Anyway"** for TomsFilmLab → open again and confirm.
 - **Older macOS**: **right-click → Open**.
 - Or clear quarantine: `xattr -dr com.apple.quarantine /Applications/TomsFilmLab.app`
 
-The Mac app checks this repo for updates (Settings → アップデート).
+The Mac app checks this repo for updates and can replace itself and restart (Help → Check for Updates…; keep it in
+`Applications`). The old Swift app only opens this page.
 
 **Windows (beta):** unzip anywhere and run `tfl-app.exe` (no installer; delete the folder to uninstall).
 The build is not code-signed, so SmartScreen shows "Windows protected your PC": click **More info → Run anyway** (once).
